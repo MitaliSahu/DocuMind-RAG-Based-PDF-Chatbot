@@ -4,7 +4,64 @@ from pathlib import Path
 
 from rag import process_uploaded_files
 from rag import answer_question
+# -----------------------------
+# 1. Authentication System
+# -----------------------------
+def check_password():
+    """Returns `True` if the user provides the correct credentials."""
 
+    def password_entered():
+        # Hardcoded credentials for demonstration. 
+        # (For a real production app, store these in a database or Streamlit Secrets)
+        if st.session_state["username"] == "admin" and st.session_state["password"] == "admin123":
+            st.session_state["password_correct"] = True
+            # Clear credentials from session state for security
+            del st.session_state["password"]  
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
+
+    # If already authenticated, allow them to proceed
+    if st.session_state.get("password_correct", False):
+        # Optional: Add a logout button to the sidebar later
+        return True
+
+    # If not authenticated, render the login form
+    st.title("🔒 ResQMind AI - Staff Login")
+    
+    st.text_input("Username", key="username")
+    st.text_input("Password", type="password", key="password")
+    
+    st.button("Login", on_click=password_entered)
+
+    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+        st.error("😕 Incorrect username or password")
+    
+    return False
+
+# -----------------------------
+# 2. Authorization Gate
+# -----------------------------
+# This stops the script from running the RAG app until the login passes
+if not check_password():
+    st.stop() 
+
+
+# ==========================================
+# 3. YOUR ORIGINAL APP CODE GOES BELOW
+# ==========================================
+
+UPLOAD_FOLDER = "uploads"
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+st.set_page_config(
+    page_title="PDF RAG Chatbot",
+    page_icon="📚",
+    layout="wide"
+)
+
+# ... (Paste the rest of your session states, sidebar, and chat logic here) ...
 UPLOAD_FOLDER = "uploads"
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
