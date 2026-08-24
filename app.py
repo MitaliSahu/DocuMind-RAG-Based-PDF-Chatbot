@@ -157,8 +157,7 @@ with st.sidebar:
 # -----------------------------
 # Main Page
 # -----------------------------
-
-st.title("📄 PDF Question Answering")
+st.title("📄 DocuMind: RAG-Based PDF Chatbot")
 
 st.caption(
     "Ask questions about your uploaded documents using Ollama."
