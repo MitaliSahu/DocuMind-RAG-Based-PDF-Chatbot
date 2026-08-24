@@ -56,7 +56,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 st.set_page_config(
-    page_title="PDF RAG Chatbot",
+    page_title="DocuMind",
     page_icon="📚",
     layout="wide"
 )
@@ -67,7 +67,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 st.set_page_config(
-    page_title="PDF RAG Chatbot",
+    page_title="DocuMind",
     page_icon="📚",
     layout="wide"
 )
@@ -91,7 +91,7 @@ if "documents" not in st.session_state:
 
 with st.sidebar:
 
-    st.title("📚 PDF RAG Chatbot")
+    st.title("📚DocuMind")
 
     st.markdown("---")
 
