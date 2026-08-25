@@ -1,6 +1,6 @@
 import os
 import shutil
-
+import chromadb
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_ollama import ChatOllama
@@ -47,7 +47,14 @@ def create_vectorstore(chunks):
     if os.path.exists(CHROMA_DB):
 
         shutil.rmtree(CHROMA_DB)
-
+    # Force Chroma to release any previous database locks
+    chromadb.api.client.SharedSystemClient.clear_system_cache()
+    
+    # Your original code starting on line 51:
+    vectorstore = Chroma.from_documents(
+        documents=chunks,
+        # ... the rest of your parameters (embedding, persist_directory, etc.)
+    )
     Chroma.from_documents(
 
         documents=chunks,
